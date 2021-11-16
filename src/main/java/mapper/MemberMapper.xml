@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MemberMapper">
+	<insert id="insertMember">
+		insert into member values (#{id}, #{password}, #{name}, #{birthday}
+			, #{phone}, #{zipcode}, #{address}, #{address2}, #{email}, #{status})
+	</insert>
+	
+	<update id="updateMember">
+		update member
+		<set>
+			<if test="password!=null and password=''">
+				password=#{password},
+			</if>
+			<if test="phone!=null and phone=''">
+				phone=#{phone},
+			</if>
+			<if test="zipcode!=null and zipcode=''">
+				address=#{zipcode},
+			</if>
+			<if test="address!=null and address=''">
+				address=#{address},
+			</if>
+			<if test="address2!=null and address2=''">
+				address=#{address2},
+			</if>
+			<if test="email!=null and email=''">
+				address=#{email},
+			</if>
+			<if test="status!=null and status=''">
+				status=#{status}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from member where id=${id}
+	</delete>
+	
+	<select id="selectMember" resultType="Member">
+		select * from member where id=#{id}
+	</select>
+	
+	<select id="selectMemberList" resultType="Member">
+		select * from member order by id
+	</select>
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(id) from member where id=#{id}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="map" resultType="String">
+		select id from member where name=#{name} and email=#{email}
+	</select>
+</mapper>

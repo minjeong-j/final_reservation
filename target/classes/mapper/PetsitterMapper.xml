@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PetsitterMapper">
+	<insert id="insertPetsitter">
+		insert into petsitter values(#{id}, #{sitterName}, ${region}, ${content})
+	</insert>
+	
+	<update id="updatePetsitter">
+		update petsitter
+		<set>
+			<if test="sitterName!=null and sitterName=''">
+				sitter_name=#{sitterName},
+			</if>
+			<if test="region!=null and region=''">
+				region=#{region},
+			</if>
+			<if test="content!=null and content=''">
+				content=#{content}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deletePetsitter">
+		delete from petsitter where id=${id}
+	</delete>
+	
+	<select id="selectPetsitter" resultType="Petsitter">
+		select * from petsitter where id=#{id}
+	</select>
+	
+	<select id="selectPetsitterList" resultType="Petsitter">
+		select * from petsitter order by id
+	</select>
+	
+</mapper>

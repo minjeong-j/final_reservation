@@ -1,0 +1,23 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+* {
+ 	 color: #545457;
+ 	 font-family: 'Spoqa Han Sans Neo', 'sans-serif'; 
+}
+
+
+/* 직접 서브하는 방법..
+@font-face {
+	font-family: 'Spoqa Hans sans';
+	src:url(주소나 경로) format('woff');
+}
+*/
+
+a {
+  text-decoration: none;
+}
+
+ul, ol, li {
+  list-style: none;
+}
+

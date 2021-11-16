@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PostMapper">
+	<insert id="insertNotice">
+		insert into notice values(notice_seq.NEXTVAL, #{userId}, 
+		#{title}, #{content}, sysdate, 0)
+	</insert>
+	
+	<insert id="insertQna">
+		insert into qna values(qna_seq.NEXTVAL, #{userId}, 
+		#{title}, #{content}, sysdate, 0)
+	</insert>
+	
+	<insert id="insertReview">
+		insert into review values(review_seq.NEXTVAL, #{userId}, 
+		#{title}, #{content}, sysdate, 0)
+	</insert>
+	
+	<insert id="insertReply">
+		insert into reply values(reply_seq.NEXTVAL,  #{postId}, #{userId}, #{content}, sysdate)
+	</insert>
+	
+	<update id="updateNotice">
+		update notice
+		<set>
+			<if test="userId!=null and userId!=''">
+				user_id=#{userId},
+			</if>
+			<if test="title!=null and title!=''">
+				title = #{title}, 
+			</if>
+			<if test="content!=null and content!=''">
+				content=#{content},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<update id="updateQna">
+		update qna
+		<set>
+			<if test="userId!=null and userId!=''">
+				user_id=#{userId},
+			</if>
+			<if test="title!=null and title!=''">
+				title = #{title}, 
+			</if>
+			<if test="content!=null and content!=''">
+				content=#{content},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<update id="updateReview">
+		update review
+		<set>
+			<if test="userId!=null and userId!=''">
+				user_id=#{userId},
+			</if>
+			<if test="title!=null and title!=''">
+				title = #{title}, 
+			</if>
+			<if test="content!=null and content!=''">
+				content=#{content},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteNotice">
+		delete from notice where id = #{id}
+	</delete>
+	
+	<delete id="deleteQna">
+		delete from qna where id = #{id}
+	</delete>
+	
+	<delete id="deleteReview">
+		delete from reivew where id = #{id}
+	</delete>
+	
+	<delete id="deleteReply">
+		delete from reply where id = #{id}
+	</delete>
+	
+	<select id="selectNotice" resultType="Post">
+		select * from notice where id = #{id}	
+	</select>
+	
+	<select id="selectQna" resultType="Post">
+		select * from qna where id = #{id}	
+	</select>
+	
+	<select id="selectReivew" resultType="Post">
+		select * from review where id = #{id}	
+	</select>
+	
+	<!-- 추가 -->
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="selectNoticeCount" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<select id="selectQnaCount" resultType="int">
+		select count(*) from qna
+	</select>
+	
+	<select id="selectReviewCount" resultType="int">
+		select count(*) from review
+	</select>
+	
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="selectNoticeList" resultType="Post">
+		select * from notice
+	</select>
+	
+	<select id="selectQnaList" resultType="Post">
+		select * from qna
+	</select>
+	
+	<select id="selectReviewList" resultType="Post">
+		select * from review
+	</select>
+	<!-- 
+	<select id="selectBoardList" resultType="Post">
+		select * from (select rownum rn, board.* from (select * from post where kind = #{kind}
+			order by id desc) board) where rn between #{startRow} and #{endRow} 
+	</select>
+	-->
+</mapper>

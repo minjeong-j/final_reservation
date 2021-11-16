@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PetProfileMapper">
+	<insert id="insertPetProfile">
+		insert into pet_profile values(pet_seq.NEXTVAL, #{userId}, #{name}, #{age},
+		#{kind}, #{weight}, #{sex}, #{img}, #{content})
+	</insert>
+
+	<update id="updatePetProfile">
+		update pet_profile
+		<set>
+			<if test="userId!=null and userId!=''">
+				user_id=#{userId},
+			</if>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="age!=null and age!=''">
+				age=#{age},
+			</if>
+			<if test="kind!=null and kind!=''">
+				kind=#{kind},
+			</if>
+			<if test="weight!=null and weight!=''">
+				weight=#{weight},
+			</if>
+			<if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="img!=null and img!=''">
+				img=#{img},
+			</if>
+			<if test="content!=null and content!=''">
+				content=#{content}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deletePetProfile">
+		delete from pet_profile where id=#{id}
+	</delete>
+	
+	<select id="selectPetProfile" resultType="PetProfile">
+		select * from pet_profile where id=#{id}
+	</select>
+	
+	<select id="selectPetProfileList" resultType="PetProfile">
+		select * from pet_profile
+	</select>
+</mapper>
